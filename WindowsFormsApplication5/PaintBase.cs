@@ -10,12 +10,14 @@ using System.Windows.Forms;
 namespace WindowsFormsApplication5
 {
     public enum Tool {Nothing,  Pencil, Line, Triangle, Rectangle, Circle, Fill };
+    public enum SelectedPen {Nothing, Pen, Pencil};
     class PaintBase
     {
         public Graphics g;
         public GraphicsPath path;
         public PictureBox picture;
-        public Pen pen;
+        public Pen pen, penForPencil;
+        public SelectedPen selectedPen;
         public Bitmap btm;
         public Point prev;
         public Tool tool;
@@ -27,6 +29,8 @@ namespace WindowsFormsApplication5
             btm = new Bitmap(picture.Width, picture.Height);
             picture.Image = btm;
             pen = new Pen(Color.Black, 2);
+            penForPencil = new Pen(Color.Black, 2);
+            selectedPen = SelectedPen.Nothing;
             g = Graphics.FromImage(btm);
             g.Clear(Color.White);
             path = new GraphicsPath();
@@ -60,8 +64,8 @@ namespace WindowsFormsApplication5
             switch (tool)
             {
                 case Tool.Pencil:
-                    g.DrawLine(pen, prev, cur);
-                    g.FillEllipse(new SolidBrush(pen.Color), cur.X - pen.Width / 2, cur.Y - pen.Width / 2, pen.Width, pen.Width);
+                    g.DrawLine(penForPencil, prev, cur);
+                    g.FillEllipse(new SolidBrush(penForPencil.Color), cur.X - pen.Width / 2, cur.Y - pen.Width / 2, pen.Width, pen.Width);
                     prev = cur;
                     break;
                 case Tool.Line:

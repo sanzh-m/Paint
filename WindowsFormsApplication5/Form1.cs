@@ -29,16 +29,19 @@ namespace WindowsFormsApplication5
         private void button1_Click(object sender, EventArgs e)
         {
             paint.tool = Tool.Pencil;
+            paint.selectedPen = SelectedPen.Pencil;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             paint.tool = Tool.Line;
+            paint.selectedPen = SelectedPen.Pen;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             paint.tool = Tool.Triangle;
+            paint.selectedPen = SelectedPen.Pen;
         }
 
         private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -86,19 +89,21 @@ namespace WindowsFormsApplication5
         private void button4_Click(object sender, EventArgs e)
         {
             paint.tool = Tool.Rectangle;
+            paint.selectedPen = SelectedPen.Pen;
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             paint.tool = Tool.Circle;
+            paint.selectedPen = SelectedPen.Pen;
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                if (paint.tool != Tool.Fill) paint.pen.Color = colorDialog1.Color;
-                else paint.fillColor = colorDialog1.Color;
+                if (paint.tool != Tool.Fill && paint.selectedPen == SelectedPen.Pen) paint.pen.Color = colorDialog1.Color;
+                if (paint.tool != Tool.Fill && paint.selectedPen == SelectedPen.Pencil) paint.penForPencil.Color = colorDialog1.Color; 
             }
         }
 
